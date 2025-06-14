@@ -1,1 +1,24 @@
+import qrcode
+from datetime import datetime
 
+
+now = datetime.now()
+current_time = now.strftime("Date: %Y-%m-%d\nTime: %H:%M:%S")
+
+qr = qrcode.QRCode(
+    version=1,  
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+
+
+qr.add_data(current_time)
+qr.make(fit=True)
+
+img = qr.make_image(fill_color="black", back_color="white")
+
+
+img.save("datetime_qr.png")
+
+print("✅ QR code generated and saved as 'datetime_qr.png'")
